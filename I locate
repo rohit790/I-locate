@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rohit Sharma — 2D Creative Generalist</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#06080d; --bg2:#0b0e16; --surface:#10141f; --s2:#151b28;
+  --gold:#e8b84b; --gold2:#f5d07a; --gdim:rgba(232,184,75,0.11);
+  --text:#dde2ee; --muted:#5e6a85; --border:rgba(232,184,75,0.13);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;font-weight:300;overflow-x:hidden;cursor:none}
+
+/* CURSOR */
+.cur{position:fixed;width:10px;height:10px;background:var(--gold);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .25s,height .25s}
+.cur-r{position:fixed;width:38px;height:38px;border:1.5px solid rgba(232,184,75,.55);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .3s,height .3s}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:300;display:flex;align-items:center;justify-content:space-between;padding:1rem 3rem;background:rgba(6,8,13,.92);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
+.nlogo{font-family:'Bebas Neue',sans-serif;font-size:1.5rem;letter-spacing:.12em;color:var(--gold);text-decoration:none}
+.nlinks{display:flex;gap:2rem;list-style:none}
+.nlinks a{color:var(--muted);text-decoration:none;font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;transition:color .2s}
+.nlinks a:hover{color:var(--gold)}
+.nhire{padding:.46rem 1.3rem;background:var(--gold);color:#06080d;font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;text-decoration:none;font-weight:500;cursor:none;transition:background .2s}
+.nhire:hover{background:var(--gold2)}
+
+/* HERO */
+#hero{min-height:100vh;display:grid;place-items:center;position:relative;overflow:hidden;padding:9rem 2rem 5rem}
+.hbg{position:absolute;inset:0;background:radial-gradient(ellipse 55% 55% at 74% 45%,rgba(232,184,75,.07) 0%,transparent 65%),radial-gradient(ellipse 35% 35% at 15% 85%,rgba(100,75,232,.05) 0%,transparent 55%)}
+.grain{position:absolute;inset:0;opacity:.03;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");pointer-events:none}
+.glines{position:absolute;inset:0;pointer-events:none;background-image:linear-gradient(rgba(232,184,75,.022) 1px,transparent 1px),linear-gradient(90deg,rgba(232,184,75,.022) 1px,transparent 1px);background-size:70px 70px}
+.hi{position:relative;text-align:center;max-width:1000px}
+.heyebrow{display:inline-flex;align-items:center;gap:.6rem;font-family:'DM Mono',monospace;font-size:.65rem;letter-spacing:.32em;text-transform:uppercase;color:var(--gold);border:1px solid rgba(232,184,75,.4);padding:.32rem 1rem;margin-bottom:2.2rem;opacity:0;animation:up .7s .15s forwards}
+.dot{width:6px;height:6px;background:var(--gold);border-radius:50%;animation:blink 1.5s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.1}}
+h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(4rem,13vw,10.5rem);line-height:.88;letter-spacing:.025em;color:#fff;opacity:0;animation:up .85s .35s forwards}
+h1 em{color:var(--gold);font-style:normal}
+.hsub{margin-top:1.5rem;font-size:clamp(.78rem,1.8vw,.9rem);letter-spacing:.26em;text-transform:uppercase;color:var(--muted);opacity:0;animation:up .8s .55s forwards}
+.hdesc{margin:1.8rem auto 0;max-width:500px;font-size:.96rem;line-height:1.9;color:var(--muted);opacity:0;animation:up .8s .72s forwards}
+.hcta{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;margin-top:2.5rem;opacity:0;animation:up .8s .9s forwards}
+.bg{display:inline-flex;align-items:center;gap:.5rem;padding:.8rem 2rem;font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;background:var(--gold);color:#06080d;font-weight:500;text-decoration:none;cursor:none;transition:background .2s,transform .15s;font-family:'DM Sans',sans-serif}
+.bg:hover{background:var(--gold2);transform:translateY(-2px)}
+.bo{display:inline-flex;align-items:center;gap:.5rem;padding:.8rem 2rem;font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;background:transparent;color:var(--gold);border:1px solid rgba(232,184,75,.45);text-decoration:none;cursor:none;transition:background .2s,transform .15s;font-family:'DM Sans',sans-serif}
+.bo:hover{background:var(--gdim);transform:translateY(-2px)}
+.hscroll{position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:.45rem;opacity:0;animation:up .8s 1.2s forwards}
+.hscroll span{font-family:'DM Mono',monospace;font-size:.58rem;letter-spacing:.32em;text-transform:uppercase;color:var(--muted)}
+.sbar{width:1px;height:44px;background:linear-gradient(var(--gold),transparent);animation:pulse 2.2s infinite}
+
+/* STATS */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.stat{padding:1.6rem 1rem;text-align:center;border-right:1px solid var(--border)}
+.stat:last-child{border-right:none}
+.sn{font-family:'Bebas Neue',sans-serif;font-size:2.8rem;color:var(--gold);line-height:1}
+.sl{font-size:.64rem;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);margin-top:.3rem}
+
+/* LAYOUT */
+section{padding:5.5rem 2rem}
+.wrap{max-width:1140px;margin:0 auto}
+.stag{font-family:'DM Mono',monospace;font-size:.64rem;letter-spacing:.38em;text-transform:uppercase;color:var(--gold);margin-bottom:.65rem}
+.stitle{font-family:'Bebas Neue',sans-serif;font-size:clamp(2rem,5.5vw,3.6rem);letter-spacing:.04em;color:#fff;line-height:1.02}
+.sep{height:1px;background:linear-gradient(90deg,transparent,rgba(232,184,75,.25),transparent);max-width:1140px;margin:0 auto}
+
+/* ABOUT */
+#about{background:var(--bg2)}
+.ag{display:grid;grid-template-columns:1.1fr .9fr;gap:5rem;align-items:start;margin-top:4rem}
+.ap{font-size:.96rem;line-height:1.95;color:var(--muted);margin-bottom:1.2rem}
+.ap strong{color:var(--text);font-weight:500}
+.ml{margin-top:2rem;display:flex;flex-direction:column}
+.mr{display:flex;align-items:center;gap:1rem;font-size:.84rem;padding:.65rem 0;border-bottom:1px solid rgba(255,255,255,.05)}
+.mk{font-family:'DM Mono',monospace;font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);min-width:80px}
+.sb{background:var(--surface);border:1px solid var(--border);padding:2.2rem;position:relative}
+.sb::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--gold),transparent)}
+.sbt{font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:.1em;color:var(--gold);margin-bottom:1.2rem}
+.chips{display:grid;grid-template-columns:repeat(3,1fr);gap:.55rem}
+.chip{background:var(--bg);border:1px solid rgba(232,184,75,.1);padding:.48rem .3rem;text-align:center;font-size:.68rem;color:var(--muted);letter-spacing:.05em;transition:all .2s}
+.chip:hover{border-color:var(--gold);color:var(--gold);background:var(--gdim)}
+
+/* ══════════════════════════════════════
+   PORTFOLIO
+══════════════════════════════════════ */
+#portfolio{background:var(--bg)}
+
+.ph{display:flex;align-items:center;gap:1rem;margin:3.5rem 0 1.5rem;padding-bottom:.85rem;border-bottom:1px solid var(--border)}
+.phbar{width:4px;height:1.55rem;background:var(--gold);flex-shrink:0}
+.phtitle{font-family:'Bebas Neue',sans-serif;font-size:1.65rem;letter-spacing:.06em;color:#fff}
+.phcount{font-family:'DM Mono',monospace;font-size:.62rem;letter-spacing:.14em;color:var(--muted);margin-left:auto}
+
+/* ── DIRECT EMBED VIDEO GRID ──
+   Videos are iframes shown straight on page — no click needed */
+.vgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.1rem;margin-bottom:.5rem}
+
+.vcard{background:var(--surface);border:1px solid var(--border);overflow:hidden;transition:border-color .3s,box-shadow .3s}
+.vcard:hover{border-color:rgba(232,184,75,.5);box-shadow:0 6px 28px rgba(0,0,0,.4)}
+
+/* The iframe lives here — always visible */
+.ve{width:100%;aspect-ratio:16/9;background:#000;display:block;border:none}
+
+.vmeta{padding:.78rem 1rem;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.vn{font-size:.8rem;color:var(--text);font-weight:500}
+.vcat{font-family:'DM Mono',monospace;font-size:.58rem;letter-spacing:.13em;color:var(--gold);text-transform:uppercase;margin-top:.15rem}
+.vbadge{font-family:'DM Mono',monospace;font-size:.55rem;letter-spacing:.12em;text-transform:uppercase;padding:.22rem .6rem;border:1px solid var(--border);color:var(--muted)}
+
+/* ── GRAPHICS — show images directly, full visible grid ── */
+.graphics-grid{display:grid;gap:1.1rem;grid-template-columns:repeat(12,1fr)}
+
+.gi{overflow:hidden;border:1px solid var(--border);background:var(--surface);position:relative;transition:border-color .3s,transform .3s,box-shadow .3s}
+.gi:hover{border-color:rgba(232,184,75,.55);transform:translateY(-4px);box-shadow:0 12px 40px rgba(0,0,0,.45)}
+.gi img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s}
+.gi:hover img{transform:scale(1.05)}
+
+/* label strip at bottom of each graphic */
+.gilabel{position:absolute;bottom:0;left:0;right:0;padding:.7rem 1rem;background:linear-gradient(transparent,rgba(6,8,13,.92));display:flex;flex-direction:column;gap:.18rem;transform:translateY(2px);transition:transform .3s}
+.gi:hover .gilabel{transform:translateY(0)}
+.giname{font-family:'Bebas Neue',sans-serif;font-size:1.05rem;letter-spacing:.07em;color:#fff}
+.gitag{font-family:'DM Mono',monospace;font-size:.55rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gold)}
+
+/* span helpers — 12-col grid */
+.g12{grid-column:span 12;min-height:340px}
+.g8{grid-column:span 8;min-height:300px}
+.g4{grid-column:span 4;min-height:300px}
+.g6{grid-column:span 6;min-height:260px}
+.g5{grid-column:span 5;min-height:260px}
+.g7{grid-column:span 7;min-height:260px}
+
+/* EXPERIENCE */
+#experience{background:var(--bg2)}
+.ew{margin-top:3.5rem}
+.ex{display:grid;grid-template-columns:185px 1fr;gap:3rem;border-top:1px solid var(--border);padding:2.5rem 0}
+.ex:last-child{border-bottom:1px solid var(--border)}
+.ex:hover{background:rgba(232,184,75,.012)}
+.ep{font-family:'DM Mono',monospace;font-size:.68rem;letter-spacing:.1em;color:var(--gold);line-height:1.65}
+.eco{font-size:.72rem;color:var(--muted);margin-top:.38rem}
+.er{font-family:'Bebas Neue',sans-serif;font-size:1.82rem;letter-spacing:.04em;color:#fff;margin-bottom:.75rem;transition:color .2s}
+.ex:hover .er{color:var(--gold)}
+.eul{list-style:none;display:flex;flex-direction:column;gap:.46rem}
+.eul li{font-size:.83rem;color:var(--muted);line-height:1.75;padding-left:1.1rem;position:relative}
+.eul li::before{content:'—';position:absolute;left:0;color:var(--gold)}
+
+/* CONTACT */
+#contact{background:var(--bg)}
+.cg{display:grid;grid-template-columns:1fr 1fr;gap:4rem;margin-top:3.5rem;align-items:start}
+.ci{font-size:.95rem;line-height:1.9;color:var(--muted);margin-top:1.4rem}
+.clist{display:flex;flex-direction:column;gap:1rem;margin-top:2rem}
+.crow{display:flex;gap:1.1rem;align-items:flex-start;padding-bottom:1rem;border-bottom:1px solid rgba(255,255,255,.05)}
+.cico{font-size:1rem;color:var(--gold);min-width:22px;margin-top:.1rem}
+.clbl{font-family:'DM Mono',monospace;font-size:.58rem;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);margin-bottom:.17rem}
+.cval{color:var(--text);font-size:.88rem}
+.cval a{color:var(--text);text-decoration:none;transition:color .2s}
+.cval a:hover{color:var(--gold)}
+.ccard{background:var(--surface);border:1px solid var(--border);padding:2.5rem;position:relative;overflow:hidden}
+.ccard::before{content:'';position:absolute;top:0;left:0;width:3px;height:100%;background:linear-gradient(var(--gold),transparent)}
+.ccard h3{font-family:'Bebas Neue',sans-serif;font-size:1.8rem;letter-spacing:.04em;color:#fff;margin-bottom:1.2rem}
+.ccard p{color:var(--muted);font-size:.85rem;line-height:1.85;margin-bottom:1rem}
+.langs{display:flex;gap:.6rem;flex-wrap:wrap}
+.lang{padding:.3rem .85rem;border:1px solid var(--border);font-size:.72rem;color:var(--muted)}
+
+/* FOOTER */
+footer{padding:1.6rem 3rem;background:var(--bg2);border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.flogo{font-family:'Bebas Neue',sans-serif;font-size:1.2rem;letter-spacing:.12em;color:var(--gold)}
+.fcopy{font-family:'DM Mono',monospace;font-size:.6rem;letter-spacing:.15em;color:var(--muted);text-transform:uppercase}
+.flinks{display:flex;gap:1.3rem}
+.flinks a{font-family:'DM Mono',monospace;font-size:.58rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color .2s}
+.flinks a:hover{color:var(--gold)}
+
+/* ANIMATIONS */
+@keyframes up{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.12}}
+.rev{opacity:0;transform:translateY(24px);transition:opacity .8s,transform .8s}
+.rev.on{opacity:1;transform:none}
+
+/* RESPONSIVE */
+@media(max-width:960px){
+  nav{padding:1rem 1.3rem}.nlinks{display:none}
+  .ag,.cg{grid-template-columns:1fr;gap:2.5rem}
+  .vgrid{grid-template-columns:1fr 1fr}
+  .graphics-grid{grid-template-columns:1fr 1fr}
+  .g12,.g8,.g4,.g6,.g5,.g7{grid-column:span 1;min-height:200px}
+  .stats{grid-template-columns:1fr 1fr}
+  .stat{border-bottom:1px solid var(--border)}
+  .ex{grid-template-columns:1fr;gap:.6rem}
+  footer{flex-direction:column;gap:.7rem;text-align:center;padding:1.4rem}
+}
+@media(max-width:580px){
+  .vgrid,.graphics-grid{grid-template-columns:1fr}
+  section{padding:3.5rem 1rem}
+}
+</style>
+</head>
+<body>
+<div class="cur" id="C"></div>
+<div class="cur-r" id="CR"></div>
+
+<!-- NAV -->
+<nav>
+  <a href="#hero" class="nlogo">RS</a>
+  <ul class="nlinks">
+    <li><a href="#about">About</a></li>
+    <li><a href="#portfolio">Portfolio</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="mailto:rs889056@gmail.com" class="nhire">Hire Me</a>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hbg"></div><div class="grain"></div><div class="glines"></div>
+  <div class="hi">
+    <div class="heyebrow"><span class="dot"></span>Available for Hire · New Delhi, India</div>
+    <h1>Rohit<br><em>Sharma</em></h1>
+    <p class="hsub">2D Creative Generalist &nbsp;·&nbsp; Video Editor &nbsp;·&nbsp; Motion Graphics</p>
+    <p class="hdesc">Crafting compelling visual stories across motion, design, and digital media — nearly 6 years of creative excellence in corporate, medical, and news media.</p>
+    <div class="hcta">
+      <a href="#portfolio" class="bg">▶ Watch My Work</a>
+      <a href="https://www.behance.net/rtphotoshoot" target="_blank" class="bo">Behance ↗</a>
+    </div>
+  </div>
+  <div class="hscroll"><span>Scroll</span><div class="sbar"></div></div>
+</section>
+
+<!-- STATS -->
+<div class="stats">
+  <div class="stat rev"><div class="sn">6</div><div class="sl">Years Experience</div></div>
+  <div class="stat rev"><div class="sn">11</div><div class="sl">Video Reels</div></div>
+  <div class="stat rev"><div class="sn">5</div><div class="sl">Behance Projects</div></div>
+  <div class="stat rev"><div class="sn">15+</div><div class="sl">Creative Skills</div></div>
+</div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="wrap">
+    <p class="stag rev">01 — About</p>
+    <h2 class="stitle rev">The Creative<br>Behind The Frame</h2>
+    <div class="ag">
+      <div>
+        <p class="ap rev">I'm a <strong>multifaceted multimedia specialist</strong> based in New Delhi with nearly 6 years turning ideas into powerful visual experiences.</p>
+        <p class="ap rev">From <strong>motion graphics and 2D animation</strong> to brand campaigns, I've delivered content across healthcare, news media, and digital publishing.</p>
+        <p class="ap rev">Great design is not decoration — it's <strong>communication at its most powerful</strong>.</p>
+        <div class="ml rev">
+          <div class="mr"><span class="mk">Email</span><span>rs889056@gmail.com</span></div>
+          <div class="mr"><span class="mk">Phone</span><span>+91-9872108876</span></div>
+          <div class="mr"><span class="mk">Location</span><span>New Delhi, India</span></div>
+          <div class="mr"><span class="mk">Behance</span><a href="https://www.behance.net/rtphotoshoot" target="_blank" style="color:var(--gold);text-decoration:none">behance.net/rtphotoshoot ↗</a></div>
+          <div class="mr"><span class="mk">Portfolio</span><a href="https://drive.google.com/drive/folders/14_8Ez97mQIEp1OXIy68iFYfrBVU21Ozx" target="_blank" style="color:var(--gold);text-decoration:none">Google Drive ↗</a></div>
+        </div>
+      </div>
+      <div class="rev">
+        <div class="sb">
+          <div class="sbt">Tools & Software</div>
+          <div class="chips">
+            <div class="chip">Premiere Pro</div><div class="chip">After Effects</div><div class="chip">Photoshop</div>
+            <div class="chip">Canva</div><div class="chip">Corel Draw</div><div class="chip">Keyshot</div>
+            <div class="chip">Illustrator</div><div class="chip">Audition</div><div class="chip">2D Animation</div>
+            <div class="chip">Motion Graphics</div><div class="chip">Color Grading</div><div class="chip">Logo Design</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="sep"></div>
+
+<!-- PORTFOLIO -->
+<section id="portfolio">
+  <div class="wrap">
+    <p class="stag rev">02 — Portfolio</p>
+    <h2 class="stitle rev">Creative<br>Showcase</h2>
+
+    <!-- ══ MOTION GRAPHICS VIDEOS ══ -->
+    <div class="ph rev">
+      <div class="phbar"></div>
+      <div class="phtitle">Motion Graphics</div>
+      <div class="phcount">7 Reels · After Effects · Premiere Pro</div>
+    </div>
+    <div class="vgrid">
+
+      <div class="vcard rev">
+        <iframe class="ve" src="https://www-ccv.adobe.io/v1/player/ccv/GAT3ME_MFHU/embed?api_key=behance1&bgcolor=%2306080d" allowfullscreen allow="autoplay; fullscreen"></iframe>
+        <div class="vmeta"><div><div class="vn">Motion Graphics — Reel 1</div><div class="vcat">After Effects · Animation</div></div><span class="vbadge">Motion</span></div>
+      </div>
+
+      <div class="vcard rev">
+        <iframe class="ve" src="https://www-ccv.adobe.io/v1/player/ccv/6ALf-oetn_s/embed?api_key=behance1&bgcolor=%2306080d" allowfullscreen allow="autoplay; fullscreen"></iframe>
+        <div class="vmeta"><div><div class="vn">Motion Graphics — Reel 2</div><div class="vcat">Brand Identity · Design</div></div><span class="vbadge">Motion</span></div>
+      </div>
+
+      <div class="vcard rev">
+        <iframe class="ve" src="https://www-ccv.adobe.io/v1/player/ccv/HZ7vJvT6J7X/embed?api_key=behance1&bgcolor=%2306080d" allowfullscreen allow="autoplay; fullscreen"></iframe>
+        <div class="vmeta"><div><div class="vn">Motion Graphics — Reel 3</div><div class="vcat">Social Media · Motion</div></div><span class="vbadge">Motion</span></div>
+      </div>
+
+      <div class="vcard rev">
+        <iframe class="ve" src="https://www-ccv.adobe.io/v1/player/ccv/Fr6NV43DINi/embed?api_key=behance1&bgcolor=%2306080d" allowfullscreen allow="autoplay; fullscreen"></iframe>
+        <div class="vmeta"><div><div class="vn">Motion Graphics — Reel 4</div><div class="vcat">Typography · Kinetic</div></div><span class="vbadge">Motion</span></div>
+      </div>
+
+      <div class="vcard rev">
+        <iframe class="ve" src="https://www-ccv.adobe.io/v1/player/ccv/8NiLbi8xVX2/embed?api_key=behance1&bgcolor=%2306080d" allowfullscreen allow="autoplay; fullscreen"></iframe>
+        <div class="vmeta"><div><div class="vn">Motion Graphics — Reel 5</div><div class="vcat">Premiere Pro · Edit</div></div><span class="vbadge">Motion</span></div>
+      </div>
+
+      <div class="vcard rev">
+        <iframe class="ve" src="https://www-ccv.adobe.io/v1/player/ccv/JiiNvB79P_2/embed?api_key=behance1&bgcolor=%2306080d" allowfullscreen allow="autoplay; fullscreen"></iframe>
+        <div class="vmeta"><div><div class="vn">Motion Graphics — Reel 6</div><div class="vcat">Design · Illustrator</div></div><span class="vbadge">Motion</span></div>
+      </div>
+
+      <div class="vcard rev">
+        <iframe class="ve" src="https://www-ccv.adobe.io/v1/player/ccv/DCJTeVmGEzB/embed?api_key=behance1&bgcolor=%2306080d" allowfullscreen allow="autoplay; fullscreen"></iframe>
+        <div class="vmeta"><div><div class="vn">Motion Graphics — Reel 7</div><div class="vcat">3D Motion · After Effects</div></div><span class="vbadge">Motion</span></div>
+      </div>
+
+    </div>
+
+    <!-- ══ VIDEO EDITING ══ -->
+    <div class="ph rev">
+      <div class="phbar"></div>
+      <div class="phtitle">Video Editing</div>
+      <div class="phcount">4 Reels · Premiere Pro · Color Grading</div>
+    </div>
+    <div class="vgrid">
+
+      <div class="vcard rev">
+        <iframe class="ve" src="https://www-ccv.adobe.io/v1/player/ccv/IVBGEAohVy4/embed?api_key=behance1&bgcolor=%2306080d" allowfullscreen allow="autoplay; fullscreen"></iframe>
+        <div class="vmeta"><div><div class="vn">Video Editing — Reel 1</div><div class="vcat">Premiere Pro · Color</div></div><span class="vbadge">Editing</span></div>
+      </div>
+
+      <div class="vcard rev">
+        <iframe class="ve" src="https://www-ccv.adobe.io/v1/player/ccv/HTRyPInMIF4/embed?api_key=behance1&bgcolor=%2306080d" allowfullscreen allow="autoplay; fullscreen"></iframe>
+        <div class="vmeta"><div><div class="vn">Video Editing — Reel 2</div><div class="vcat">Animation · Motion</div></div><span class="vbadge">Editing</span></div>
+      </div>
+
+      <div class="vcard rev">
+        <iframe class="ve" src="https://www-ccv.adobe.io/v1/player/ccv/QDnad85i9DJ/embed?api_key=behance1&bgcolor=%2306080d" allowfullscreen allow="autoplay; fullscreen"></iframe>
+        <div class="vmeta"><div><div class="vn">Video Editing — Reel 3</div><div class="vcat">Brand · Social Media</div></div><span class="vbadge">Editing</span></div>
+      </div>
+
+      <div class="vcard rev">
+        <iframe class="ve" src="https://www-ccv.adobe.io/v1/player/ccv/McMnupsiypN/embed?api_key=behance1&bgcolor=%2306080d" allowfullscreen allow="autoplay; fullscreen"></iframe>
+        <div class="vmeta"><div><div class="vn">Video Editing — Reel 4</div><div class="vcat">After Effects · Edit</div></div><span class="vbadge">Editing</span></div>
+      </div>
+
+    </div>
+
+    <!-- ══ GRAPHIC DESIGN — fully visible, no click needed ══ -->
+    <div class="ph rev">
+      <div class="phbar"></div>
+      <div class="phtitle">Graphic Design & Branding</div>
+      <div class="phcount">5 Projects · Photoshop · Illustrator · Canva</div>
+    </div>
+
+    <div class="graphics-grid">
+
+      <!-- Row 1: GIF wide (8) + Logo (4) -->
+      <div class="gi g8 rev">
+        <img src="https://mir-s3-cdn-cf.behance.net/project_modules/max_632/c522f3249339673.6a05708abaffb.gif" alt="Motion Graphics Animated">
+        <div class="gilabel"><div class="giname">Motion Graphics</div><div class="gitag">After Effects · Animated GIF</div></div>
+      </div>
+      <div class="gi g4 rev">
+        <img src="https://mir-s3-cdn-cf.behance.net/projects/max_808/00b69f249338429.Y3JvcCw1MjAwLDQwNjcsMCw1NjY.png" alt="Logo Design">
+        <div class="gilabel"><div class="giname">Logo Design</div><div class="gitag">Illustrator · Branding</div></div>
+      </div>
+
+      <!-- Row 2: Dojo Room (7) + Social Media (5) -->
+      <div class="gi g7 rev">
+        <img src="https://mir-s3-cdn-cf.behance.net/projects/max_808/89895d249223959.Y3JvcCwzNDUxLDI3MDAsNjc1LDA.png" alt="Dojo Room">
+        <div class="gilabel"><div class="giname">Dojo Room</div><div class="gitag">Graphic Design · Layout · Print</div></div>
+      </div>
+      <div class="gi g5 rev">
+        <img src="https://mir-s3-cdn-cf.behance.net/projects/max_808/3eeb71249224571.Y3JvcCwxMDgwLDg0NCwwLDI1MQ.png" alt="Social Media Graphics">
+        <div class="gilabel"><div class="giname">Social Media Graphics</div><div class="gitag">Canva · Photoshop</div></div>
+      </div>
+
+      <!-- Row 3: Motion & Video full width -->
+      <div class="gi g12 rev">
+        <img src="https://mir-s3-cdn-cf.behance.net/projects/max_808/4980b6249231933.Y3JvcCwxNjE2LDEyNjQsMCww.png" alt="Motion & Video Editing">
+        <div class="gilabel"><div class="giname">Motion Graphic & Video Editing</div><div class="gitag">After Effects · Premiere Pro · Complete Production</div></div>
+      </div>
+
+    </div>
+
+    <div style="text-align:center;margin-top:3rem;display:flex;gap:1rem;justify-content:center;flex-wrap:wrap" class="rev">
+      <a href="https://www.behance.net/rtphotoshoot" target="_blank" class="bg">View Full Behance ↗</a>
+      <a href="https://drive.google.com/drive/folders/14_8Ez97mQIEp1OXIy68iFYfrBVU21Ozx" target="_blank" class="bo">Google Drive Portfolio ↗</a>
+    </div>
+  </div>
+</section>
+
+<div class="sep"></div>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="wrap">
+    <p class="stag rev">03 — Career</p>
+    <h2 class="stitle rev">Work<br>Experience</h2>
+    <div class="ew">
+      <div class="ex rev">
+        <div><div class="ep">Mar 2024<br>— Present</div><div class="eco">Auxein Medical</div></div>
+        <div>
+          <div class="er">2D Creative Generalist</div>
+          <ul class="eul">
+            <li>Design engaging social media graphics enhancing brand visibility across Instagram, Facebook & LinkedIn.</li>
+            <li>Produce high-quality print collateral — product flyers, medical catalogues, and marketing materials.</li>
+            <li>Develop innovative exhibition booth designs increasing visitor interaction at trade shows.</li>
+            <li>Edit promotional videos and trending reels to boost social media reach and engagement.</li>
+            <li>Craft motion graphics and typography for compelling digital storytelling.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="ex rev">
+        <div><div class="ep">Aug 2022<br>— Mar 2024</div><div class="eco">Democratic Media Pvt. Ltd.</div></div>
+        <div>
+          <div class="er">Senior Video Editor & Graphic Designer</div>
+          <ul class="eul">
+            <li>Led video production and post-production workflows for a dynamic digital media outlet.</li>
+            <li>Designed graphics and visual assets for news segments, social media, and campaigns.</li>
+            <li>Managed multi-platform content strategy for YouTube, Facebook, and Instagram.</li>
+            <li>Delivered time-sensitive, high-quality multimedia content with editorial teams.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="ex rev">
+        <div><div class="ep">Aug 2020<br>— Aug 2022</div><div class="eco">Hapur Hulchul</div></div>
+        <div>
+          <div class="er">Digital Team Lead</div>
+          <ul class="eul">
+            <li>Led a digital team handling video editing, graphic design, social media, and SEO strategy.</li>
+            <li>Managed end-to-end video production including camera handling, editing, and publishing.</li>
+            <li>Executed regional social media strategies, driving measurable growth in viewership.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="wrap">
+    <p class="stag rev">04 — Let's Talk</p>
+    <h2 class="stitle rev">Hire Me<br>Today</h2>
+    <div class="cg">
+      <div>
+        <p class="ci rev">Open to full-time roles, freelance projects, and creative collaborations. Whether you need a video editor, motion designer, or complete multimedia specialist — let's create something extraordinary.</p>
+        <div class="clist">
+          <div class="crow rev"><div class="cico">📧</div><div><div class="clbl">Email</div><div class="cval"><a href="mailto:rs889056@gmail.com">rs889056@gmail.com</a></div></div></div>
+          <div class="crow rev"><div class="cico">📞</div><div><div class="clbl">Phone / WhatsApp</div><div class="cval"><a href="tel:+919872108876">+91-9872108876</a></div></div></div>
+          <div class="crow rev"><div class="cico">📍</div><div><div class="clbl">Location</div><div class="cval">New Delhi, India</div></div></div>
+          <div class="crow rev"><div class="cico">🎨</div><div><div class="clbl">Behance</div><div class="cval"><a href="https://www.behance.net/rtphotoshoot" target="_blank">behance.net/rtphotoshoot ↗</a></div></div></div>
+          <div class="crow rev"><div class="cico">💼</div><div><div class="clbl">Portfolio Drive</div><div class="cval"><a href="https://drive.google.com/drive/folders/14_8Ez97mQIEp1OXIy68iFYfrBVU21Ozx" target="_blank">View on Google Drive ↗</a></div></div></div>
+        </div>
+      </div>
+      <div class="ccard rev">
+        <h3>Why Work With Me?</h3>
+        <p>Nearly 6 years of proven creative excellence across corporate, healthcare, and media sectors. One person — complete solution from concept to publish.</p>
+        <p>Expert in <strong style="color:var(--text)">After Effects, Premiere Pro, Photoshop, Illustrator</strong> — the full creative pipeline.</p>
+        <p style="color:var(--gold);font-size:.7rem;letter-spacing:.1em;margin-bottom:.7rem;text-transform:uppercase;">Languages</p>
+        <div class="langs"><span class="lang">English</span><span class="lang">Hindi</span><span class="lang">Punjabi</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="flogo">Rohit Sharma</div>
+  <div class="flinks">
+    <a href="https://www.behance.net/rtphotoshoot" target="_blank">Behance</a>
+    <a href="https://drive.google.com/drive/folders/14_8Ez97mQIEp1OXIy68iFYfrBVU21Ozx" target="_blank">Portfolio</a>
+    <a href="mailto:rs889056@gmail.com">Email</a>
+  </div>
+  <div class="fcopy">© 2026 · Rohit Sharma · 2D Creative Generalist · New Delhi</div>
+</footer>
+
+<script>
+// Cursor
+const C=document.getElementById('C'),CR=document.getElementById('CR');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;C.style.left=mx+'px';C.style.top=my+'px'});
+(function l(){rx+=(mx-rx)*.1;ry+=(my-ry)*.1;CR.style.left=rx+'px';CR.style.top=ry+'px';requestAnimationFrame(l)})();
+document.querySelectorAll('a,button,.chip,.vcard,.gi').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{C.style.width='15px';C.style.height='15px';CR.style.width='52px';CR.style.height='52px'});
+  el.addEventListener('mouseleave',()=>{C.style.width='10px';C.style.height='10px';CR.style.width='38px';CR.style.height='38px'});
+});
+
+// Scroll Reveal
+document.querySelectorAll('.rev').forEach(el=>
+  new IntersectionObserver((es,o)=>es.forEach(e=>{
+    if(e.isIntersecting){e.target.classList.add('on');o.unobserve(e.target)}
+  }),{threshold:.07}).observe(el)
+);
+
+// Nav active
+const secs=[...document.querySelectorAll('section[id]')],navAs=[...document.querySelectorAll('.nlinks a')];
+window.addEventListener('scroll',()=>{
+  let cur='';secs.forEach(s=>{if(window.scrollY>=s.offsetTop-240)cur=s.id});
+  navAs.forEach(a=>{a.style.color=a.getAttribute('href')==='#'+cur?'var(--gold)':''});
+},{passive:true});
+</script>
+</body>
+</html>
